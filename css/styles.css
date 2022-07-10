@@ -3,6 +3,7 @@
   --title-color: #212121;
   --accient-color: #2196f3;
   --icons-color: #afb1b8;
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 ::selection {
@@ -38,6 +39,7 @@ h5,
 h6,
 p {
   margin: 0;
+  font-size: 14px;
 }
 
 .container {
@@ -76,6 +78,8 @@ p {
 
 .header .link,
 .footer .link {
+  transition: 250ms var(--timing-function);
+
   color: var(--title-color);
 }
 
@@ -90,7 +94,20 @@ p {
 }
 
 .header .link.current {
+  position: relative;
   color: var(--accient-color);
+}
+
+.header .link.current::after {
+  position: absolute;
+  content: '';
+  bottom: 0;
+
+  border-radius: 2px;
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accient-color);
 }
 
 /* Header */
@@ -112,6 +129,8 @@ p {
 }
 
 .header .contacts {
+  transition: 250ms var(--timing-function);
+
   display: flex;
   margin-left: auto;
   align-items: center;
@@ -134,6 +153,8 @@ p {
 }
 
 .header .link.contacts {
+  transition: 250ms var(--timing-function);
+
   color: var(--font-color);
 }
 
@@ -249,6 +270,26 @@ p {
   gap: 30px;
 }
 
+.work-item {
+  position: relative;
+}
+
+.work-caption {
+  position: absolute;
+  bottom: 0;
+
+  padding: 27px 0;
+  width: 100%;
+  background-color: rgba(47, 48, 58, 0.8);
+
+  font-weight: 700;
+  line-height: 1.14;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #fff;
+  text-align: center;
+}
+
 /* Section team */
 
 .team {
@@ -309,11 +350,14 @@ p {
 }
 
 .icon-list {
+  transition: 250ms var(--timing-function);
+
   display: flex;
   width: 44px;
   height: 44px;
   justify-content: center;
   align-items: center;
+
   border-radius: 50%;
   fill: var(--icons-color);
 }
@@ -348,9 +392,12 @@ p {
 }
 
 .clients-list {
+  transition: 250ms var(--timing-function);
+
   display: flex;
   width: 170px;
   height: 92px;
+
   border: 1px solid #afb1b8;
   border-radius: 4px;
   justify-content: center;
@@ -388,6 +435,8 @@ p {
 }
 
 .footer .link {
+  transition: 250ms var(--timing-function);
+
   margin-top: 9px;
 
   color: rgba(255, 255, 255, 0.6);
@@ -415,9 +464,12 @@ p {
 }
 
 .icon-link {
+  transition: 250ms var(--timing-function);
+
   display: flex;
   align-items: center;
   padding: 12px;
+
   border-radius: 50%;
   fill: #fff;
   background-color: rgba(255, 255, 255, 0.1);
@@ -438,6 +490,8 @@ p {
 }
 
 .button-filtres {
+  transition: 250ms var(--timing-function);
+
   padding: 6px 22px;
 
   font-family: inherit;
@@ -460,6 +514,11 @@ p {
     0px 2px 2px rgba(0, 0, 0, 0.12);
 }
 
+.item {
+  display: flex;
+  flex-basis: calc((1200px- 60px) / 3);
+}
+
 .filter-item {
   display: flex;
   justify-content: center;
@@ -475,6 +534,7 @@ p {
 
 .item .filtres-link {
   display: inline-block;
+  transition: 250ms var(--timing-function);
 }
 
 .item .filtres-link:hover,
@@ -492,7 +552,9 @@ p {
 }
 
 .filtres-img {
-  display: block;
+  position: relative;
+  overflow: hidden;
+  display: flex;
   margin: 0;
   padding: 0;
 }
@@ -516,4 +578,78 @@ p {
   font-size: 16px;
   line-height: 1.88;
   letter-spacing: 0.03em;
+}
+
+.list-description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: 250ms var(--timing-function);
+
+  padding: 63px 24px;
+
+  font-size: 18px;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+  color: #fff;
+
+  background-color: rgba(33, 150, 243, 0.9);
+  width: 100%;
+  height: 100%;
+}
+
+.filtres-link:hover .list-description {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  visibility: visible;
+  transition: 250ms var(--timing-function);
+  transform: scale(1);
+
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: scale(2);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+  min-width: 528px;
+  min-height: 581px;
+
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.modal-button {
+  position: absolute;
+  right: 0;
+  border-radius: 50%;
+
+  width: 30px;
+  height: 30px;
+  margin: 8px;
+
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  fill: #000000;  
 }
